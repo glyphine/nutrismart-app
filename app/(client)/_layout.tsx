@@ -9,7 +9,7 @@ import {
   Dimensions,
   Platform,
   View,
-} from "react-native";
+} from "react-native"; 
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const TAB_COUNT = 5;
@@ -62,8 +62,8 @@ export default function ClientLayout() {
             backgroundColor: COLORS.background,
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
-            height: 65,
-            paddingBottom: Platform.OS === "ios" ? 15 : 4,
+            height: 86,
+            paddingBottom: Platform.OS === "ios" ? 24 : 18,
             paddingTop: 8,
           },
           tabBarIcon: ({ focused }) => {
@@ -90,13 +90,13 @@ export default function ClientLayout() {
               case "add":
                 return (
                   <View
-                    className="h-16 w-16 rounded-full justify-center items-center mb-6"
+                    className="h-16 w-16 rounded-full justify-center items-center mb-8"
                     style={{
                       backgroundColor: COLORS.primary,
                       ...Platform.select({
                         ios: {
                           shadowColor: COLORS.gray,
-                          shadowOffset: { width: 0, height: 4 },
+                          shadowOffset: { width: 0, height: 6 },
                           shadowOpacity: 0.3,
                           shadowRadius: 6,
                         },
@@ -125,18 +125,14 @@ export default function ClientLayout() {
         <Tabs.Screen name="inventory" options={{ title: "Inventory", headerShown: false }} />
         <Tabs.Screen name="add" options={{ title: "Add", headerShown: false }} />
         <Tabs.Screen name="favorites" options={{ title: "Favorites", headerShown: false }} />
-        <Tabs.Screen name="generate" options={{ title: "Generate", headerShown: false }} />
-        <Tabs.Screen name="ingredient/[id]" options={{ href: null, headerShown: false }} />
-        <Tabs.Screen name="profile/[id]" options={{ href: null, headerShown: false }} />
-        <Tabs.Screen name="recipes" options={{ href: null, headerShown: false }} />
-        <Tabs.Screen name ="ingredient/add" options = {{href: null, headerShown: false}} />
+        <Tabs.Screen name="generate" options={{ title: "Generate", headerShown: false }} /> 
       </Tabs>
 
    
       <Animated.View
         style={{
           position: "absolute",
-          bottom: Platform.OS === "ios" ? 20 : 12,
+          bottom: Platform.OS === "ios" ? 36 : 36,
           left: (TAB_WIDTH - 24) / 2,
           height: 3,
           width: 24,
