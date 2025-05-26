@@ -9,7 +9,8 @@ import {
   Dimensions,
   Platform,
   View,
-} from "react-native"; 
+} from "react-native";
+
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const TAB_COUNT = 5;
