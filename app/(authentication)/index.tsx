@@ -1,17 +1,21 @@
-import { router } from "expo-router";
-import { Pressable, Text, View } from "react-native";
+import SlideButton from "@/components/slidingbutton";
+import { Image, Text, View } from "react-native";
 
-export default function App() {
+export default function OpeningPage() {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-2xl font-lexend-bold text-primary">Oten</Text>
-      <Text className="text-xl font-noto text-blue-600">Oten</Text>
-      <Text className="text-xl font-bold text-blue-600">Oten</Text>
-      <Text className="text-xl font-bold text-blue-600">Oten</Text>
-      <Pressable onPress={() => router.push("./(client)")}>
-        <Text className="text-xl font-bold text-blue-600">CLICK HERE</Text>
+    <View className="flex-1 bg-[#122938] items-center justify-start">
+      <View className="flex-1 w-full h-1/2 items-start justify-start">
+        <Image
+          source={require("@/assets/images/opening.png")}
+          width={1080}
+          height={1080}
+          className="w-full h-[550px]"
+        />
+      </View>
+    <Text className="text-5xl font-lexend-extrabold text-white mb-12 ">Nutri<Text className="text-yellow">Smart</Text></Text>
 
-      </Pressable>
+   
+        <SlideButton />
     </View>
   );
 }

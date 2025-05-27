@@ -1,14 +1,8 @@
-import { Slot } from "expo-router";
-import { Text, View } from "react-native";
+import { Stack } from "expo-router";
 import "../global.css";
 
-export default function Layout() {
+export default function AuthenticationLayout() {
   return (
-    <View className="flex-1 bg-white">
-      <View className="p-4 bg-blue-500">
-        <Text className="text-white font-bold text-lg">My Simple App</Text>
-      </View>
-      <Slot />
-    </View>
-  );
+    <Stack screenOptions={{ headerShown: false }} />
+  )
 }
