@@ -1,39 +1,29 @@
 import { COLORS } from "@/constants/themes";
-import Checkbox from "expo-checkbox";
+import { Checkbox } from "expo-checkbox";
 import { router } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Animated,
-  Dimensions,
-  Image,
-  Keyboard,
-  KeyboardEvent,
-  Platform,
-  Pressable,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
+    Animated,
+    Image,
+    Keyboard,
+    KeyboardEvent,
+    Platform,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    View,
 } from "react-native";
 
-const SCREEN_HEIGHT = Dimensions.get("window").height;
-
 export default function RegisterScreen() {
-  // States
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [agree, setAgree] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [keyboardOffset] = useState(new Animated.Value(0));
-
-  const [usernameError, setUsernameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [agreeError, setAgreeError] = useState(false);
+  const [keyboardOffset] = useState(new Animated.Value(0));
 
-  // Animations
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(20)).current;
   const imageFade = useRef(new Animated.Value(0)).current;
@@ -62,7 +52,7 @@ export default function RegisterScreen() {
         useNativeDriver: true,
       }),
     ]).start();
-  });
+  }, );
 
   useEffect(() => {
     const keyboardShow = Keyboard.addListener(
@@ -88,25 +78,21 @@ export default function RegisterScreen() {
       keyboardShow.remove();
       keyboardHide.remove();
     };
-  }, []);
+  },);
 
   const handleRegister = () => {
-    const isValidUsername = !!username.trim();
     const isValidEmail = !!email.trim();
     const isValidPassword = !!password.trim();
 
-    setUsernameError(!isValidUsername);
+
     setEmailError(!isValidEmail);
     setPasswordError(!isValidPassword);
     setAgreeError(!agree);
 
-    if (!isValidUsername || !isValidEmail || !isValidPassword || !agree) {
-      setErrorMessage("Please complete all fields and accept the terms.");
+    if (!isValidEmail || !isValidPassword || !agree) {
       return;
     }
 
-    // Clear all
-    setErrorMessage("");
     router.replace("/(client)");
   };
 
@@ -116,13 +102,13 @@ export default function RegisterScreen() {
         style={{ flex: 1, paddingBottom: keyboardOffset }}
         className="bg-[#122938]"
       >
-        {/* Animated Top Image */}
+        {/* Top Image */}
         <Animated.View
           style={{
             opacity: imageFade,
             transform: [{ translateY: imageSlide }],
           }}
-          className="items-center "
+          className="items-center"
         >
           <Image
             source={require("@/assets/images/login-art.png")}
@@ -130,7 +116,7 @@ export default function RegisterScreen() {
           />
         </Animated.View>
 
-        {/* Slide-Up Drawer Style Form */}
+        {/* Form Container */}
         <Animated.View
           className="flex-1 bg-[#F5F5F5] rounded-t-3xl px-6 pt-8"
           style={{
@@ -142,27 +128,10 @@ export default function RegisterScreen() {
             <Text className="text-center text-3xl font-lexend-bold text-primary mt-2 px-2">
               CREATE ACCOUNT
             </Text>
-            <Text className="text-center text-sm font-noto text-black mt-2 px-2 mb-4">
-              Create your account to begin your wellness.
-            </Text>
 
-            <View className="px-2 mt-2">
-              <Text className="text-base font-lexend-bold text-primary">
-                Username
-              </Text>
-              <TextInput
-                placeholder="Enter your username"
-                value={username}
-                onChangeText={(text) => {
-                  setUsername(text);
-                  setUsernameError(false);
-                }}
-                className={`mt-2 border ${
-                  usernameError ? "border-red-500" : "border-primary"
-                } bg-blue-100 rounded-lg p-4 text-base text-gray font-noto`}
-              />
-
-              <Text className="text-base font-lexend-bold text-primary mt-6">
+            <View className="px-2">
+              {/* Email */}
+              <Text className="text-base font-lexend-bold text-primary mt-4">
                 Email
               </Text>
               <TextInput
@@ -173,11 +142,17 @@ export default function RegisterScreen() {
                   setEmailError(false);
                 }}
                 className={`mt-2 border ${
-                  emailError ? "border-red-500" : "border-primary"
+                  emailError ? "border-red" : "border-primary"
                 } bg-blue-100 rounded-lg p-4 text-base text-gray font-noto`}
               />
+              {emailError && (
+                <Text className="text-xs text-red mt-1 font-noto ml-1">
+                  Please enter a valid email.
+                </Text>
+              )}
 
-              <Text className="text-base font-lexend-bold text-primary mt-6">
+              {/* Password */}
+              <Text className="text-base font-lexend-bold text-primary mt-4">
                 Password
               </Text>
               <TextInput
@@ -189,9 +164,14 @@ export default function RegisterScreen() {
                   setPasswordError(false);
                 }}
                 className={`mt-2 border ${
-                  passwordError ? "border-red-500" : "border-primary"
+                  passwordError ? "border-red" : "border-primary"
                 } bg-blue-100 rounded-lg p-4 text-base text-gray font-noto`}
               />
+              {passwordError && (
+                <Text className="text-xs text-red mt-1 font-noto ml-1">
+                  Password is required.
+                </Text>
+              )}
 
               {/* Checkbox */}
               <View className="flex-row mt-6 items-center gap-2">
@@ -212,47 +192,41 @@ export default function RegisterScreen() {
                 </View>
               </View>
               {agreeError && (
-                <Text className="text-red-500 text-xs mt-1 font-noto">
+                <Text className="text-xs text-red mt-1 font-noto ml-1">
                   You must agree to continue.
                 </Text>
               )}
 
-              {/* Error Message */}
-              {errorMessage !== "" && (
-                <Text className="text-red-500 text-center mt-4 font-lexend-bold">
-                  {errorMessage}
-                </Text>
-              )}
-
-              {/* Register with Google */}
-              <TouchableOpacity className="mt-6 items-center">
-                <Image
-                  source={require("@/assets/images/google-btn.png")}
-                  className="w-[250px] h-12"
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
-
-              {/* Submit */}
-              <Pressable
+              {/* Sign Up Button */}
+              <TouchableOpacity
                 className="bg-primary mt-6 py-4 rounded-xl items-center"
                 onPress={handleRegister}
               >
                 <Text className="text-white font-lexend-bold text-lg">
                   SIGN UP
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
 
-              {/* Switch to Login */}
-              <Text className="text-center text-sm mt-4 text-gray-700 font-noto">
-                Already have an account?{" "}
-                <Text
-                  className="text-red font-lexend-bold"
-                  onPress={() => router.replace("/(authentication)/login")}
-                >
-                  Sign In
+              {/* Divider */}
+              <View className="flex-row items-center mt-4 mb-2">
+                <View className="flex-1 h-px bg-gray-300" />
+                <Text className="mx-3 text-sm text-gray-400 font-noto">OR</Text>
+                <View className="flex-1 h-px bg-gray-300" />
+              </View>
+
+              {/* Continue with Google */}
+              <TouchableOpacity
+                onPress={() => console.log("Google Sign-In")}
+                className="flex-row items-center justify-center py-3 px-4 rounded-xl border border-gray-300 bg-white"
+              >
+                <Image
+                  source={require("@/assets/images/google-btn.png")}
+                  className="w-8 h-8"
+                />
+                <Text className="ml-3 text-black font-noto text-base">
+                  Continue with Google
                 </Text>
-              </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </Animated.View>
