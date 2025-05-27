@@ -26,7 +26,7 @@ export default function SlideButton() {
             toValue: threshold,
             duration: 150,
             useNativeDriver: false,
-          }).start(() => router.push("/openingtwo"));
+          }).start(() => router.push("/(authentication)/openingtwo"));
         } else {
           Animated.spring(slideX, {
             toValue: 0,
@@ -54,7 +54,7 @@ export default function SlideButton() {
         />
 
         {/* Centered label */}
-        <Text className="absolute self-center text-primary font-lexend-extrabold text-lg">
+        <Text className="absolute self-center text-[#122938] font-lexend-extrabold text-lg">
           GET STARTED
         </Text>
 
