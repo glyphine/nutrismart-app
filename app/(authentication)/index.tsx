@@ -1,6 +1,6 @@
 import SlideButton from "@/components/slidingbutton";
 import { useEffect, useRef, useState } from "react";
-import { Animated, Image, Text, View } from "react-native";
+import { Animated, Image, View } from "react-native";
 
 interface OpeningEntry {
   image: any;
@@ -47,11 +47,11 @@ export default function OpeningPage() {
       );
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, );
 
   useEffect(() => {
     animateFade(); // Animate on slide change
-  }, [currentIndex]);
+  },);
 
   const currentOpening = openingDataset[currentIndex];
 
