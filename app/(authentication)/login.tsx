@@ -47,7 +47,7 @@ export default function LoginScreen() {
       keyboardShow.remove();
       keyboardHide.remove();
     };
-  }, []);
+  }, );
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(20)).current;
@@ -77,7 +77,7 @@ export default function LoginScreen() {
         useNativeDriver: true,
       }),
     ]).start();
-  }, []);
+  }, );
 
   const handleLogin = () => {
     const emailValid = !!email.trim();
