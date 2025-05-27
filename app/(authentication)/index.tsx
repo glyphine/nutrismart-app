@@ -1,76 +1,97 @@
 import SlideButton from "@/components/slidingbutton";
-import { useEffect, useState } from "react";
-import { Image, Text, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Animated, Image, Text, View } from "react-native";
 
 interface OpeningEntry {
   image: any;
+  title: string;
   texts: string;
 }
 
 const openingDataset: OpeningEntry[] = [
   {
     image: require("@/assets/images/opening.png"),
-    texts: "NutriSmart helps diabetics find healthy food options.",
+    title: "Healthy Picks",
+    texts: "Find diabetic-friendly ingredients.",
   },
   {
     image: require("@/assets/images/openning2.png"),
-    texts: "NutriSmart scans ingredients and suggests smart meals.",
+    title: "Scan & Suggest",
+    texts: "Scan food, get smart meals.",
   },
   {
     image: require("@/assets/images/openning3.png"),
-    texts: "NutriSmart uses AI to support better eating habits.",
+    title: "AI-Powered",
+    texts: "Eat better with smart guidance.",
   },
 ];
 
 export default function OpeningPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const animateFade = () => {
+    fadeAnim.setValue(0);
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 800,
+      useNativeDriver: true,
+    }).start();
+  };
 
   useEffect(() => {
-    let isMounted = true;
-
+    animateFade(); // Animate on mount
     const interval = setInterval(() => {
-      if (!isMounted) return;
       setCurrentIndex((prevIndex) =>
         prevIndex === openingDataset.length - 1 ? 0 : prevIndex + 1
       );
     }, 3000);
-
-    return () => {
-      isMounted = false;
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    animateFade(); // Animate on slide change
+  }, [currentIndex]);
 
   const currentOpening = openingDataset[currentIndex];
 
   return (
     <View className="flex-1 bg-[#122938] items-center justify-start">
-      <View className="flex-1 w-full h-1/2 items-start justify-start">
+      <Animated.View
+        className="flex-1 w-full h-1/2 items-start justify-start"
+        style={{ opacity: fadeAnim }}
+      >
         <Image
           source={currentOpening.image}
           className="w-full h-[550px]"
           resizeMode="cover"
         />
-      </View>
+      </Animated.View>
 
-      <Text className="text-5xl font-lexend-extrabold text-white mb-4">
-        Nutri<Text className="text-yellow">Smart</Text>
-      </Text>
+      <Animated.Text
+        className="text-4xl font-lexend-extrabold text-white mb-2"
+        style={{ opacity: fadeAnim }}
+      >
+        {currentOpening.title}
+      </Animated.Text>
 
-      <Text className="text-white text-center mb-6 text-sm font-noto px-14">
+      <Animated.Text
+        className="text-white text-center mb-12 text-sm font-noto px-14"
+        style={{ opacity: fadeAnim }}
+      >
         {currentOpening.texts}
-      </Text>
+      </Animated.Text>
 
       {/* Static Dot Indicator */}
-      <View className="flex-row mb-6">
+      <View className="flex-row mb-8">
         {openingDataset.map((_, index) => (
           <View
             key={index}
             style={{
-              width: 8,
-              height: 8,
-              borderRadius: 5, // makes it a circle
-              marginHorizontal: 2, // adds spacing between dots
+              width: 10,
+              height: 10,
+              borderRadius: 5,
+              marginHorizontal: 6,
               backgroundColor:
                 index === currentIndex ? "#F4E99A" : "rgba(255,255,255,0.4)",
             }}

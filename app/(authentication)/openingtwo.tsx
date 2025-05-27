@@ -1,59 +1,57 @@
-import {
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-
-
-
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { router } from "expo-router";
+import React from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
 export default function OpenningTwo() {
   return (
-   <View className="flex-1 bg-primary items-center justify-start gap-12">
-        {/* Top View */}
-        <View className="flex-1 w-full h-1/2 items-center justify-center">
-          <Image
-            source={require("@/assets/images/bg-login.png")}
-            width={1080}
-            height={1080}
-            className="w-full h-[360px]"
-          />
+    <View className="flex-1 bg-[#122938] items-center justify-start gap-12">
+      {/* Top View */}
+      <View className="flex-1 w-full h-1/2 items-center justify-center">
+        <Image
+          source={require("@/assets/images/bg-login.png")}
+          width={1080}
+          height={1080}
+          className="w-full h-[360px]"
+        />
+      </View>
+
+      {/* Bottom View */}
+      <View className="flex-1 w-full h-1/2 items-center justify-center">
+        <View className="flex-1 w-full h-1/2 items-center justify-start">
+          <Text className="text-5xl font-lexend-extrabold text-white ">
+            Nutri<Text className="text-yellow">Smart</Text>
+          </Text>
+          <Text className="text-white text-sm font-notosans-regular mt-2 text-center px-12">
+            Your companion in making smarter, healthier choices.
+          </Text>
         </View>
 
-        {/* Bottom View */}
-        <View className="flex-1 w-full h-1/2 items-center justify-center">
-          <View className="flex-1 w-full h-1/2 items-center justify-start">
-            <Text className="text-white text-5xl pt-4 mb-2 px-14 font-lexend-extrabold">
-              NutriSmart
-            </Text>
-            <Text className="text-white text-center mb-6 text-sm font-noto px-14">
-              NutriSmart helps diabetics eat healthier by analyzing ingredients
-              and suggesting smart meals.
-            </Text>
-          </View>
-
-          {/* Buttons */}
-          <View className="flex-1 w-full h-1/2 items-center justify-start px-14">
+        <View className=" justify-center items-center w-full h-[52%] inset-shadow bg-backgroundtwo rounded-tl-[200px] rounded-br-[200px] px-14 py-10 ">
+          {/* Two buttons side-by-side */}
+          <View className="flex-row mb-32">
             <TouchableOpacity
-              className="w-full bg-yellow py-4 rounded-2xl mb-4"
-             
+              onPress={() => router.push("/login")}
+              className="bg-white w-36 h-36 justify-center items-center shadow rounded-t-3xl rounded-bl-3xl"
             >
-              <Text className="text-xl text-center text-primary font-lexend-bold">
-                Get Started
+              <MaterialIcons name="login" size={40} color="#102338" />
+              <Text className="text-black text-center mt-2 font-NotoSans-Bold">
+                Login
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              className="w-full py-4 rounded-2xl"
-             
+              onPress={() => router.push("/register")}
+              className="bg-yellow p-6 w-36 h-36 justify-center items-center shadow rounded-b-3xl rounded-tr-3xl mt-6"
             >
-              <Text className="text-xl text-center text-white font-lexend-bold underline">
-                LOGIN
+              <MaterialIcons name="person-add-alt-1" size={40} color="#102338" />
+              <Text className="text-black text-center mt-3 font-NotoSans-Bold">
+                Create{"\n"}Account
               </Text>
             </TouchableOpacity>
           </View>
         </View>
-        </View>
+      </View>
+    </View>
   );
 }
