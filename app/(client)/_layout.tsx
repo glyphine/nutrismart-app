@@ -124,11 +124,12 @@ export default function ClientLayout() {
       >
         <Tabs.Screen name="index" options={{ title: "Home", headerShown: false }} />
         <Tabs.Screen name="inventory" options={{ title: "Inventory", headerShown: false }} />
-        <Tabs.Screen name="add" options={{ title: "Add", headerShown: false }} />
+        <Tabs.Screen name="add" options={{ title: "Add", headerShown: false, tabBarStyle: { display: "none" }}} />
         <Tabs.Screen name="favorites" options={{ title: "Favorites", headerShown: false }} />
         <Tabs.Screen name="generate" options={{ title: "Generate", headerShown: false }} /> 
         <Tabs.Screen name="hidden/profile" options={{ href: null, headerShown: false }} />
         <Tabs.Screen name ="ingredient/add" options = {{href: null, headerShown: false}} />
+        <Tabs.Screen name ="hidden/[scan]" options = {{href: null, headerShown: false, tabBarStyle: { display: "none" }}} />
         <Tabs.Screen name ="ingredient/[id]" options = {{href: null, headerShown: false}} />
         <Tabs.Screen name ="recipes" options = {{href: null, headerShown: false}} />
       </Tabs>
