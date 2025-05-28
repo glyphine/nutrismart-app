@@ -4,12 +4,11 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   Image,
-  Pressable,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 
 export default function ProfilePage() {
@@ -27,9 +26,9 @@ export default function ProfilePage() {
       {/* Profile Header */}
       <View className="bg-yellow rounded-3xl">
         {/* Back Button */}
-        <Pressable className="p-2" onPress={() => router.back()}>
+        <TouchableOpacity className="p-2" onPress={() => router.back()}>
           <Ionicons name="chevron-back" size={24} color={COLORS.primary} />
-        </Pressable>
+        </TouchableOpacity>
 
         <View className="flex-row items-center mb-8 ">
           <View className="flex-1 items-start mt-14">
@@ -47,12 +46,12 @@ export default function ProfilePage() {
               source={require("@/assets/images/profile.jpg")}
               className="w-32 h-32 rounded-full"
             />
-            <Pressable
+            <TouchableOpacity
               onPress={() => console.log("Change image pressed")}
               className="absolute bg-primary p-2 ml-2 rounded-full"
             >
               <Ionicons name="pencil" size={16} color={COLORS.background} />
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -132,7 +131,7 @@ export default function ProfilePage() {
 
       {/* Buttons */}
       <View className="mt-8">
-        <Pressable
+        <TouchableOpacity
           onPress={toggleEdit}
           className={`${
             editable ? "bg-green-800" : "bg-primary"
@@ -141,7 +140,7 @@ export default function ProfilePage() {
           <Text className="text-white font-lexend-bold text-lg">
             {editable ? "SAVE" : "EDIT"}
           </Text>
-        </Pressable>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => router.push("/(authentication)/openingtwo")}
           className="bg-white py-4 rounded-xl items-center border border-primary"
