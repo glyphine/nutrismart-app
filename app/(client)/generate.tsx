@@ -3,10 +3,10 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   Image,
-  Pressable,
   ScrollView,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -22,7 +22,7 @@ export default function RecipePage() {
     <ScrollView className="flex-1 bg-background px-6 pt-8">
       {/* Title */}
 
-      <View className="bg-white p-6 rounded-3xl shadow-lg">
+      <View className="bg-white p-6 rounded-3xl shadow-lg mt-4">
         {/* Title */}
         <Text className="text-2xl font-lexend-bold text-center text-primary mb-4">
           Are you craving for something?
@@ -42,23 +42,23 @@ export default function RecipePage() {
         />
 
         {/* Generate Recipe Button */}
-        <Pressable
+        <TouchableOpacity 
           onPress={handleGenerateRecipe}
           className="bg-primary py-4 rounded-xl items-center"
         >
           <Text className="text-white font-lexend-bold text-lg">
             Generate Recipe
           </Text>
-        </Pressable>
+        </TouchableOpacity >
       </View>
 
-      <Text className="font-lexend-bold text-primary text-3xl py-6">
+      <Text className="font-lexend-bold text-primary text-2xl py-6">
         Categories
       </Text>
 
       <View className="flex-col justify-between pb-6 py-2">
         {/* Breakfast */}
-        <Pressable className="pb-4" onPress={() => router.push("/recipes/breakfast")}>
+        <TouchableOpacity  className="pb-4" onPress={() => router.push("/recipes/breakfast")}>
           <Image
             source={require("@/assets/images/generate/breakfast.png")}
             className="w-full h-56 rounded-t-xl"
@@ -71,10 +71,10 @@ export default function RecipePage() {
             </Text>
             <MaterialIcons name="navigate-next" size={24} color="white" />
           </View>
-        </Pressable>
+        </TouchableOpacity >
 
         {/* Lunch */}
-        <Pressable
+        <TouchableOpacity 
           className="pb-4" onPress={() => router.push("/recipes/lunch")}
         >
           <Image
@@ -89,10 +89,10 @@ export default function RecipePage() {
             </Text>
             <MaterialIcons name="navigate-next" size={24} color="white" />
           </View>
-        </Pressable>
+        </TouchableOpacity >
 
         {/* Dinner */}
-        <Pressable
+        <TouchableOpacity 
           className="pb-4" onPress={() => router.push("/recipes/dinner")}
         >
           <Image
@@ -106,10 +106,10 @@ export default function RecipePage() {
             </Text>
             <MaterialIcons name="navigate-next" size={24} color="white" />
           </View>
-        </Pressable>
+        </TouchableOpacity >
 
         {/* Snack */}
-        <Pressable
+        <TouchableOpacity 
           className="pb-12" onPress={() => router.push("/recipes/snack")}
         >
           <Image
@@ -123,7 +123,7 @@ export default function RecipePage() {
             </Text>
             <MaterialIcons name="navigate-next" size={24} color="white" />
           </View>
-        </Pressable>
+        </TouchableOpacity >
       </View>
     </ScrollView>
   );
