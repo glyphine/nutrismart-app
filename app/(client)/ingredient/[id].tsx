@@ -1,17 +1,16 @@
-// app/(client)/ingredient/[id].tsx
+import { COLORS } from "@/constants/themes";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  TextInput,
   Image,
   ScrollView,
+  Text,
+  TextInput,
   TouchableOpacity,
+  View,
 } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router";
 import { inventoryData } from "./sampledata";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { COLORS } from "@/constants/themes";
 
 const categories = ["Vegetable", "Fruit", "Grain", "Protein", "Dairy"];
 
@@ -25,6 +24,13 @@ export default function EditIngredientPage() {
   const [category, setCategory] = useState(ingredient?.category || "");
   const [description, setDescription] = useState("");
 
+  const [editable, setEditable] = useState(false);
+  const [errors, setErrors] = useState({
+    name: false,
+    stock: false,
+    category: false,
+  });
+
   if (!ingredient) {
     return (
       <View className="flex-1 justify-center items-center">
@@ -33,15 +39,27 @@ export default function EditIngredientPage() {
     );
   }
 
-  const handleSave = () => {
-    console.log("Updated Data:", { id, name, stock, category, description });
-    router.back();
+  const handleToggle = () => {
+    if (!editable) {
+      setEditable(true);
+    } else {
+      const newErrors = {
+        name: name.trim() === "",
+        stock: stock.trim() === "",
+        category: category.trim() === "",
+      };
+      setErrors(newErrors);
+      if (Object.values(newErrors).some(Boolean)) return;
+
+      console.log("Updated Data:", { id, name, stock, category, description });
+      setEditable(false); // stay on form and disable editing
+    }
   };
 
   const handleDelete = () => {
     const index = inventoryData.findIndex((item) => item.id === Number(id));
     if (index !== -1) {
-      inventoryData.splice(index, 1); // removes item from array
+      inventoryData.splice(index, 1);
       console.log("Deleted item:", id);
       router.push("/inventory");
     } else {
@@ -52,7 +70,7 @@ export default function EditIngredientPage() {
   return (
     <ScrollView className="flex-1 bg-background px-6 pt-6">
       {/* Header */}
-      <View className="relative justify-center items-center h-16 mt-4 mb-4">
+      <View className="relative justify-center items-center h-16 mt-4 mb-4 flex-row">
         <TouchableOpacity
           onPress={() => router.push("/inventory")}
           className="absolute left-0 top-1/2 -translate-y-1/2 p-2"
@@ -60,13 +78,19 @@ export default function EditIngredientPage() {
           <Ionicons name="chevron-back" size={28} color={COLORS.primary} />
         </TouchableOpacity>
         <Text className="text-2xl font-lexend-bold text-primary">Edit</Text>
+        <TouchableOpacity
+          onPress={handleDelete}
+          className="absolute right-0 top-1/2 -translate-y-1/2 p-2"
+        >
+          <Ionicons name="trash-outline" size={24} color="#DC2626" />
+        </TouchableOpacity>
       </View>
 
       {/* Image */}
       <View className="relative items-center mb-4">
         <Image
           source={ingredient.image}
-          className="w-full h-48 rounded-2xl opacity-60"
+          className="w-full h-32 rounded-2xl opacity-60"
           resizeMode="cover"
         />
         <View className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -76,29 +100,44 @@ export default function EditIngredientPage() {
 
       {/* Form */}
       <View className="space-y-4">
-        <View className="py-2 mt-2">
+        {/* Name */}
+        <View className="py-2">
           <Text className="text-base font-lexend-bold text-gray-700">Item</Text>
           <TextInput
-            className="mt-2 border border-primary bg-blue-100 rounded-lg px-4 py-3 text-lg text-gray font-noto"
+            editable={editable}
+            className={`mt-2 border rounded-lg px-4 py-3 text-base font-noto ${
+              editable
+                ? errors.name
+                  ? "border-red bg-rose-50"
+                  : "border-primary bg-blue-100"
+                : "border-primary bg-white"
+            } text-black`}
             value={name}
-            onChangeText={setName}
+            onChangeText={(val) => {
+              setName(val);
+              setErrors((prev) => ({ ...prev, name: false }));
+            }}
+            placeholder="Product Name"
           />
         </View>
 
+        {/* Category */}
         <View className="py-2">
           <Text className="text-base font-lexend-bold text-gray-700">
             Category
           </Text>
-          <View className="flex-row flex-wrap gap-2 mt-2 ">
+          <View className="flex-row flex-wrap gap-2 mt-2 justify-center">
             {categories.map((cat) => (
               <TouchableOpacity
                 key={cat}
-                onPress={() => setCategory(cat)}
-                className={`px-6 py-2 rounded-xl border font-lexend-bold text-xs ${
+                onPress={() => editable && setCategory(cat)}
+                className={`px-4 py-2 rounded-full border font-lexend-bold text-sm ${
                   category === cat
-                    ? "bg-yellow border-primary text-primary font-lexend-bold"
-                    : "bg-white border-gray text-gray font-lexend-bold"
-                }`}
+                    ? "bg-yellow border-primary text-primary"
+                    : errors.category
+                    ? "border-red bg-rose-50 text-gray"
+                    : "bg-white border-gray text-gray"
+                } ${!editable ? "opacity-50" : ""}`}
               >
                 <Text>{cat.toUpperCase()}</Text>
               </TouchableOpacity>
@@ -106,24 +145,42 @@ export default function EditIngredientPage() {
           </View>
         </View>
 
+        {/* Stock */}
         <View className="py-2">
           <Text className="text-base font-lexend-bold text-gray-700">
             Quantity
           </Text>
           <TextInput
-            className="mt-2 border border-primary bg-blue-100 rounded-lg px-4 py-3 text-base text-gray font-noto"
+            editable={editable}
+            className={`mt-2 border rounded-lg px-4 py-3 text-base font-noto ${
+              editable
+                ? errors.stock
+                  ? "border-red bg-rose-50"
+                  : "border-primary bg-blue-100"
+                : "border-primary bg-white"
+            } text-black`}
             keyboardType="numeric"
             value={stock}
-            onChangeText={setStock}
+            onChangeText={(val) => {
+              setStock(val);
+              setErrors((prev) => ({ ...prev, stock: false }));
+            }}
+            placeholder="Total items"
           />
         </View>
 
+        {/* Description */}
         <View className="py-2">
           <Text className="text-base font-lexend-bold text-gray-700">
             Description (Optional)
           </Text>
           <TextInput
-            className="mt-2 border border-primary bg-blue-100 rounded-lg px-4 py-4 text-base text-gray font-noto"
+            editable={editable}
+            className={`mt-2 border rounded-lg px-4 py-4 text-base font-noto ${
+              editable
+                ? "border-primary bg-blue-100"
+                : "border-primary bg-white"
+            } text-black`}
             placeholder="Enter your description"
             placeholderTextColor="#999"
             multiline
@@ -133,23 +190,20 @@ export default function EditIngredientPage() {
         </View>
       </View>
 
-      {/* Save Button */}
-      <View className="mt-8">
-        <TouchableOpacity
-          onPress={handleSave}
-          className="bg-primary py-4 rounded-xl items-center"
-        >
-          <Text className="text-white font-lexend-bold text-lg">SAVE</Text>
-        </TouchableOpacity>
-      </View>
+      {/* Save/Edit Button */}
       <View className="mt-4">
         <TouchableOpacity
-          onPress={() => handleDelete()}
-          className="bg-red-100 py-4 rounded-xl items-center border border-red-600"
+          onPress={handleToggle}
+          className={`${
+            editable ? "bg-green-700" : "bg-primary"
+          } py-4 rounded-xl items-center`}
         >
-          <Text className="text-red-600 font-lexend-bold text-lg">DELETE</Text>
+          <Text className="text-white font-lexend-bold text-lg">
+            {editable ? "SAVE" : "EDIT"}
+          </Text>
         </TouchableOpacity>
       </View>
+
       <View className="m-6" />
     </ScrollView>
   );
