@@ -4,13 +4,14 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
+  FlatList,
   Image,
   Pressable,
   ScrollView,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
-  FlatList,
 } from "react-native";
 
 const getRecommendedMeals = () => {
@@ -95,13 +96,13 @@ export default function HomePage() {
               Gwyn Lobaton
             </Text>
           </View>
-          <Pressable onPress={() => router.push("/hidden/profile")}>
+          <TouchableOpacity onPress={() => router.push("/hidden/profile")}>
             <Image
               source={require("@/assets/images/profile.jpg")}
               className="w-16 h-16 rounded-full ml-4"
               resizeMode="cover"
             />
-          </Pressable>
+          </TouchableOpacity>
         </View>
 
         {/* Featured Section */}
@@ -118,16 +119,17 @@ export default function HomePage() {
             placeholderTextColor="#666"
             className="flex-1 text-base text-gray-800 font-noto p-2"
           />
-          <Pressable className="ml-2">
+          <TouchableOpacity className="ml-2">
             <Ionicons name="search" size={24} color={COLORS.primary} />
-          </Pressable>
-          <Pressable className="ml-3">
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => router.push("/add")} className="ml-3">
             <MaterialCommunityIcons
               name="scan-helper"
               size={24}
               color={COLORS.primary}
             />
-          </Pressable>
+          </TouchableOpacity>
         </View>
 
         {/* Categories */}
@@ -142,13 +144,13 @@ export default function HomePage() {
             { src: require("@/assets/images/buttons/protein-button.png") },
             { src: require("@/assets/images/buttons/dairy-button.png") },
           ].map((item, index) => (
-            <Pressable key={index}>
+            <TouchableOpacity key={index}>
               <Image
                 source={item.src}
                 className="w-16 h-24 rounded-xl"
                 resizeMode="cover"
               />
-            </Pressable>
+            </TouchableOpacity>
           ))}
         </View>
       </View>
