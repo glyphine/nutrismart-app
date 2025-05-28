@@ -5,7 +5,6 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
   Image,
-  Pressable,
   ScrollView,
   Text,
   TextInput,
