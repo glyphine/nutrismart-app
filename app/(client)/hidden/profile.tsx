@@ -8,7 +8,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 
 export default function ProfilePage() {
@@ -16,10 +16,52 @@ export default function ProfilePage() {
   const [lastName, setLastName] = useState("Lobaton");
   const [username, setUsername] = useState("glyphine");
   const [email, setEmail] = useState("gaLobaton@mcm.edu.ph");
-  const [newPassword, setNewPassword] = useState("*****");
+  const [newPassword, setNewPassword] = useState("********");
   const [editable, setEditable] = useState(false);
 
-  const toggleEdit = () => setEditable(!editable);
+  const [errors, setErrors] = useState({
+    firstName: false,
+    lastName: false,
+    username: false,
+    email: false,
+    password: false,
+    passwordMsg: "",
+  });
+
+  const validate = () => {
+    const newErrors = {
+      firstName: firstName.trim() === "",
+      lastName: lastName.trim() === "",
+      username: username.trim() === "",
+      email: email.trim() === "",
+      password: false,
+      passwordMsg: "",
+    };
+
+    const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/;
+
+    if (!passwordRegex.test(newPassword)) {
+      newErrors.password = true;
+      newErrors.passwordMsg =
+        "Password must be at least 8 characters and include a number and special character.";
+    }
+
+    setErrors(newErrors);
+    return !(
+      newErrors.firstName ||
+      newErrors.lastName ||
+      newErrors.username ||
+      newErrors.email ||
+      newErrors.password
+    );
+  };
+
+  const toggleEdit = () => {
+    if (editable) {
+      if (!validate()) return;
+    }
+    setEditable(!editable);
+  };
 
   return (
     <ScrollView className="flex-1 bg-background px-6 pt-6">
@@ -30,7 +72,7 @@ export default function ProfilePage() {
           <Ionicons name="chevron-back" size={24} color={COLORS.primary} />
         </TouchableOpacity>
 
-        <View className="flex-row items-center mb-8 ">
+        <View className="flex-row items-center mb-8">
           <View className="flex-1 items-start mt-14">
             <Text className="px-4 text-3xl font-lexend-bold text-primary">
               {firstName} {lastName}
@@ -58,6 +100,7 @@ export default function ProfilePage() {
 
       {/* Form */}
       <View className="space-y-4">
+        {/* Name Fields */}
         <View className="py-2 mt-2">
           <View className="flex-row gap-4">
             <TextInput
@@ -65,7 +108,9 @@ export default function ProfilePage() {
               onChangeText={setFirstName}
               editable={editable}
               placeholder="First Name"
-              className={`flex-1 border border-primary ${
+              className={`flex-1 border ${
+                errors.firstName ? "border-red" : "border-primary"
+              } ${
                 editable ? "bg-blue-100 text-black" : "bg-gray-200 text-gray"
               } rounded-lg px-4 py-3 text-base font-noto`}
             />
@@ -74,24 +119,28 @@ export default function ProfilePage() {
               onChangeText={setLastName}
               editable={editable}
               placeholder="Last Name"
-              className={`flex-1 border border-primary ${
+              className={`flex-1 border ${
+                errors.lastName ? "border-red" : "border-primary"
+              } ${
                 editable ? "bg-blue-100 text-black" : "bg-gray-200 text-gray"
               } rounded-lg px-4 py-3 text-base font-noto`}
             />
           </View>
         </View>
 
+        {/* Username */}
         <View className="py-2">
           <View
-            className={`flex-row items-center border border-primary ${
-              editable ? "bg-blue-100" : "bg-gray-200"
-            } rounded-lg px-4`}
+            className={`flex-row items-center border ${
+              errors.username ? "border-red" : "border-primary"
+            } ${editable ? "bg-blue-100" : "bg-gray-200"} rounded-lg px-4`}
           >
             <Text className="text-base text-gray">@</Text>
             <TextInput
               value={username}
               onChangeText={setUsername}
               editable={editable}
+              placeholder="Username"
               className={`flex-1 text-base ${
                 editable ? "text-black" : "text-gray"
               } pl-1`}
@@ -99,6 +148,7 @@ export default function ProfilePage() {
           </View>
         </View>
 
+        {/* Email */}
         <View className="py-2">
           <Text className="text-base font-lexend-bold text-gray-700">
             Email
@@ -107,12 +157,16 @@ export default function ProfilePage() {
             value={email}
             onChangeText={setEmail}
             editable={editable}
-            className={`mt-2 border border-primary ${
+            placeholder="Email"
+            className={`mt-2 border ${
+              errors.email ? "border-red" : "border-primary"
+            } ${
               editable ? "bg-blue-100 text-black" : "bg-gray-200 text-gray"
             } rounded-lg px-4 py-3 text-base`}
           />
         </View>
 
+        {/* Password */}
         <View className="py-2">
           <Text className="text-base font-lexend-bold text-gray-700">
             New Password
@@ -122,15 +176,23 @@ export default function ProfilePage() {
             onChangeText={setNewPassword}
             secureTextEntry
             editable={editable}
-            className={`mt-2 border border-primary ${
+            placeholder="Password"
+            className={`mt-2 border ${
+              errors.password ? "border-red" : "border-primary"
+            } ${
               editable ? "bg-blue-100 text-black" : "bg-gray-200 text-gray"
             } rounded-lg px-4 py-3 text-base`}
           />
+          {errors.password && editable && (
+            <Text className="text-xs text-red mt-1 font-noto">
+              {errors.passwordMsg}
+            </Text>
+          )}
         </View>
       </View>
 
       {/* Buttons */}
-      <View className="mt-8">
+      <View className="mt-4">
         <TouchableOpacity
           onPress={toggleEdit}
           className={`${
@@ -149,7 +211,7 @@ export default function ProfilePage() {
         </TouchableOpacity>
       </View>
 
-      <View className="m-6"></View>
+      <View className="m-6" />
     </ScrollView>
   );
 }
