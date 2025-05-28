@@ -19,6 +19,11 @@ export default function OpenningTwo() {
       {/* Bottom View */}
       <View className="flex-1 w-full h-1/2 items-center justify-center">
         <View className="flex-1 w-full h-1/2 items-center justify-start">
+         <TouchableOpacity onPress={() => router.push("/(client)")}>
+          <Text className="font-lexend-extrabold text-red mb-2">
+            TEMPORARY BUTTON
+          </Text>
+        </TouchableOpacity>
           <Text className="text-5xl font-lexend-extrabold text-white ">
             Nutri<Text className="text-yellow">Smart</Text>
           </Text>
@@ -44,7 +49,11 @@ export default function OpenningTwo() {
               onPress={() => router.push("/register")}
               className="bg-yellow p-6 w-36 h-36 justify-center items-center shadow rounded-b-3xl rounded-tr-3xl mt-6"
             >
-              <MaterialIcons name="person-add-alt-1" size={40} color="#102338" />
+              <MaterialIcons
+                name="person-add-alt-1"
+                size={40}
+                color="#102338"
+              />
               <Text className="text-black text-center mt-3 font-NotoSans-Bold">
                 Create{"\n"}Account
               </Text>

@@ -127,7 +127,7 @@ export default function ClientLayout() {
         <Tabs.Screen name="add" options={{ title: "Add", headerShown: false }} />
         <Tabs.Screen name="favorites" options={{ title: "Favorites", headerShown: false }} />
         <Tabs.Screen name="generate" options={{ title: "Generate", headerShown: false }} /> 
-        <Tabs.Screen name="profile" options={{ href: null, headerShown: false }} />
+        <Tabs.Screen name="hidden/profile" options={{ href: null, headerShown: false }} />
       </Tabs>
 
    
