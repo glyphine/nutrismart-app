@@ -1,5 +1,4 @@
 import { COLORS } from "@/constants/themes";
-import Feather from "@expo/vector-icons/Feather";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
 import { useRouter } from "expo-router";
@@ -93,8 +92,13 @@ export default function InventoryPage() {
       {/* Inventory List */}
       <View className="space-y-4 pb-12 ">
         {filteredInventory.map((item) => (
-          <View
+          <Pressable
             key={item.id}
+            onPress={() =>
+              router.push(
+                `/(client)/ingredient/${item.id}` as `/(client)/ingredient/${string}`
+              )
+            }
             className="flex-row items-center bg-white rounded-3xl overflow-hidden mb-4"
           >
             {/* Left image */}
@@ -114,19 +118,13 @@ export default function InventoryPage() {
               </Text>
             </View>
 
-            {/* Right stock + icon */}
+            {/* Right stock */}
             <View className="items-center justify-center gap-1 pr-4">
               <Text className="text-sm font-noto text-primary">
                 In stock: {item.stock}
               </Text>
-              <Pressable
-               onPress={() => router.push(`/(client)/ingredient/${item.id}` as `/(client)/ingredient/${string}`)}
-                className="bg-primary p-2 rounded-full"
-              >
-                <Feather name="edit-3" size={16} color="#fff" />
-              </Pressable>
             </View>
-          </View>
+          </Pressable>
         ))}
 
         {filteredInventory.length === 0 && (
