@@ -5,8 +5,8 @@ import {
   Text,
   TextInput,
   Image,
-  Pressable,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { inventoryData } from "./sampledata";
@@ -53,12 +53,12 @@ export default function EditIngredientPage() {
     <ScrollView className="flex-1 bg-background px-6 pt-6">
       {/* Header */}
       <View className="relative justify-center items-center h-16 mt-4 mb-4">
-        <Pressable
+        <TouchableOpacity
           onPress={() => router.push("/inventory")}
           className="absolute left-0 top-1/2 -translate-y-1/2 p-2"
         >
           <Ionicons name="chevron-back" size={28} color={COLORS.primary} />
-        </Pressable>
+        </TouchableOpacity>
         <Text className="text-2xl font-lexend-bold text-primary">Edit</Text>
       </View>
 
@@ -91,7 +91,7 @@ export default function EditIngredientPage() {
           </Text>
           <View className="flex-row flex-wrap gap-2 mt-2 ">
             {categories.map((cat) => (
-              <Pressable
+              <TouchableOpacity
                 key={cat}
                 onPress={() => setCategory(cat)}
                 className={`px-6 py-2 rounded-xl border font-lexend-bold text-xs ${
@@ -101,7 +101,7 @@ export default function EditIngredientPage() {
                 }`}
               >
                 <Text>{cat.toUpperCase()}</Text>
-              </Pressable>
+              </TouchableOpacity>
             ))}
           </View>
         </View>
@@ -135,20 +135,20 @@ export default function EditIngredientPage() {
 
       {/* Save Button */}
       <View className="mt-8">
-        <Pressable
+        <TouchableOpacity
           onPress={handleSave}
           className="bg-primary py-4 rounded-xl items-center"
         >
           <Text className="text-white font-lexend-bold text-lg">SAVE</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
       <View className="mt-4">
-        <Pressable
+        <TouchableOpacity
           onPress={() => handleDelete()}
           className="bg-red-100 py-4 rounded-xl items-center border border-red-600"
         >
           <Text className="text-red-600 font-lexend-bold text-lg">DELETE</Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
       <View className="m-6" />
     </ScrollView>
