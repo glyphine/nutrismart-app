@@ -130,6 +130,7 @@ export default function ClientLayout() {
         <Tabs.Screen name="hidden/profile" options={{ href: null, headerShown: false }} />
         <Tabs.Screen name ="ingredient/add" options = {{href: null, headerShown: false}} />
         <Tabs.Screen name ="ingredient/[id]" options = {{href: null, headerShown: false}} />
+        <Tabs.Screen name ="recipes" options = {{href: null, headerShown: false}} />
       </Tabs>
 
    
