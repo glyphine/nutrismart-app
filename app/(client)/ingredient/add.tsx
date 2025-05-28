@@ -70,7 +70,7 @@ export default function AddIngredientPage() {
   return (
     <ScrollView className="flex-1 bg-background px-6 pt-6">
       {/* Header */}
-      <View className="relative justify-center items-center h-16 mb-4">
+      <View className="relative justify-center items-center h-16 mt-4 mb-4">
         <Pressable
           onPress={() => router.push("/inventory")}
           className="absolute left-0 top-1/2 -translate-y-1/2 p-2"
