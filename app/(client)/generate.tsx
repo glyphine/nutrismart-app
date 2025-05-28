@@ -3,6 +3,7 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   Image,
+  Pressable,
   ScrollView,
   Text,
   TextInput,
@@ -58,7 +59,7 @@ export default function RecipePage() {
 
       <View className="flex-col justify-between pb-6 py-2">
         {/* Breakfast */}
-        <TouchableOpacity  className="pb-4" onPress={() => router.push("/recipes/breakfast")}>
+        <Pressable className="pb-4" onPress={() => router.push("/recipes/breakfast")}>
           <Image
             source={require("@/assets/images/generate/breakfast.png")}
             className="w-full h-56 rounded-t-xl"
@@ -71,10 +72,10 @@ export default function RecipePage() {
             </Text>
             <MaterialIcons name="navigate-next" size={24} color="white" />
           </View>
-        </TouchableOpacity >
+        </Pressable >
 
         {/* Lunch */}
-        <TouchableOpacity 
+        <Pressable
           className="pb-4" onPress={() => router.push("/recipes/lunch")}
         >
           <Image
@@ -89,10 +90,10 @@ export default function RecipePage() {
             </Text>
             <MaterialIcons name="navigate-next" size={24} color="white" />
           </View>
-        </TouchableOpacity >
+        </Pressable >
 
         {/* Dinner */}
-        <TouchableOpacity 
+        <Pressable
           className="pb-4" onPress={() => router.push("/recipes/dinner")}
         >
           <Image
@@ -106,10 +107,10 @@ export default function RecipePage() {
             </Text>
             <MaterialIcons name="navigate-next" size={24} color="white" />
           </View>
-        </TouchableOpacity >
+        </Pressable>
 
         {/* Snack */}
-        <TouchableOpacity 
+        <Pressable
           className="pb-12" onPress={() => router.push("/recipes/snack")}
         >
           <Image
@@ -123,7 +124,7 @@ export default function RecipePage() {
             </Text>
             <MaterialIcons name="navigate-next" size={24} color="white" />
           </View>
-        </TouchableOpacity >
+        </Pressable>
       </View>
     </ScrollView>
   );
