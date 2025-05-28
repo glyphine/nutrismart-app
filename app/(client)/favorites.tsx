@@ -5,14 +5,14 @@ import React, { useState } from "react";
 import {
   Dimensions,
   FlatList,
-  Pressable,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 
-// Sample Favorites Data
-const favorites = [
+// Initial Favorites Data
+const initialFavorites = [
   {
     id: "1",
     title: "Chicken & Broccoli Cheese Bake",
@@ -42,46 +42,32 @@ const favorites = [
 ];
 
 export default function FavoritesPage() {
+  const [favoritesList, setFavoritesList] = useState(initialFavorites);
   const [isGridView, setIsGridView] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Get screen dimensions for responsive layout
   const screenWidth = Dimensions.get("window").width;
-  const screenHeight = Dimensions.get("window").height;
   const spacing = 16;
-
-  // Dynamically adjust card width based on screen size
   const cardWidth = isGridView
-    ? (screenWidth - spacing * 3) / 2 // 2 cards + spacing
+    ? (screenWidth - spacing * 3) / 2
     : screenWidth - spacing * 2;
 
-  // Initially, all items are favorited
-  const [favoriteItems, setFavoriteItems] = useState<Record<string, boolean>>(
-    favorites.reduce((acc, item) => {
-      acc[item.id] = true; // Set all to true (favorited)
-      return acc;
-    }, {} as Record<string, boolean>)
-  );
-
-  const filteredFavorites = favorites.filter((item) =>
+  const filteredFavorites = favoritesList.filter((item) =>
     item.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Toggle favorite state
-  const toggleFavorite = (id: string) => {
-    setFavoriteItems((prev) => ({
-      ...prev,
-      [id]: !prev[id], // Toggle the favorite status
-    }));
+  const removeFavorite = (id: string) => {
+    setFavoritesList((prev) => prev.filter((item) => item.id !== id));
   };
+
   return (
-    <View className="flex-1 bg-background pt-6 ">
+    <View className="flex-1 bg-background pt-6">
       {/* Header Title */}
       <Text className="text-3xl font-lexend-bold text-center text-primary mb-8 mt-8">
         Favorites
       </Text>
 
-      {/* Search + Add Toggle */}
+      {/* Search + Grid Toggle */}
       <View className="flex-row items-center mb-4 px-6">
         <View className="flex-row flex-1 items-center bg-white px-2 rounded-2xl">
           <TextInput
@@ -93,7 +79,7 @@ export default function FavoritesPage() {
           />
           <Ionicons name="search" size={20} color="#000" />
         </View>
-        <Pressable
+        <TouchableOpacity
           className="bg-primary p-3 ml-2 rounded-xl"
           onPress={() => setIsGridView(!isGridView)}
         >
@@ -102,10 +88,10 @@ export default function FavoritesPage() {
             size={20}
             color={COLORS.white}
           />
-        </Pressable>
+        </TouchableOpacity>
       </View>
 
-      {/* Conditional Rendering: Favorites or Empty */}
+      {/* Favorites List */}
       {filteredFavorites.length > 0 ? (
         <FlatList
           data={filteredFavorites}
@@ -123,7 +109,7 @@ export default function FavoritesPage() {
           }}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <View
+            <TouchableOpacity 
               className="bg-white p-6 rounded-3xl shadow-sm mb-4 ml-2"
               style={{
                 width: cardWidth,
@@ -139,13 +125,9 @@ export default function FavoritesPage() {
                 >
                   {item.title}
                 </Text>
-                <Pressable onPress={() => toggleFavorite(item.id)}>
-                  <Ionicons
-                    name={favoriteItems[item.id] ? "heart" : "heart-outline"}
-                    size={24}
-                    color={favoriteItems[item.id] ? "red" : "gray"}
-                  />
-                </Pressable>
+                <TouchableOpacity onPress={() => removeFavorite(item.id)}>
+                  <Ionicons name="heart" size={24} color="red" />
+                </TouchableOpacity>
               </View>
               <Text
                 className="text-base text-gray mt-1"
@@ -153,7 +135,7 @@ export default function FavoritesPage() {
               >
                 {item.description}
               </Text>
-            </View>
+            </TouchableOpacity >
           )}
         />
       ) : (
