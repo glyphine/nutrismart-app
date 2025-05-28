@@ -9,6 +9,7 @@ import {
   ScrollView,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { inventoryData } from "./ingredient/sampledata";
@@ -49,12 +50,12 @@ export default function InventoryPage() {
           />
           <Ionicons name="search" size={20} color="#000" />
         </View>
-        <Pressable
+        <TouchableOpacity 
           className="bg-primary p-3 ml-4 rounded-xl"
           onPress={() => router.push(`/ingredient/add`)}
         >
           <Ionicons name="add" size={20} color="#fff" />
-        </Pressable>
+        </TouchableOpacity >
       </View>
 
       {/* Category */}
@@ -84,7 +85,7 @@ export default function InventoryPage() {
               >
                 {cat.toUpperCase()}
               </Text>
-            </Pressable>
+            </Pressable >
           );
         })}
       </ScrollView>
@@ -92,7 +93,7 @@ export default function InventoryPage() {
       {/* Inventory List */}
       <View className="space-y-4 pb-12 ">
         {filteredInventory.map((item) => (
-          <Pressable
+          <TouchableOpacity 
             key={item.id}
             onPress={() =>
               router.push(
@@ -124,7 +125,7 @@ export default function InventoryPage() {
                 In stock: {item.stock}
               </Text>
             </View>
-          </Pressable>
+          </TouchableOpacity >
         ))}
 
         {filteredInventory.length === 0 && (
