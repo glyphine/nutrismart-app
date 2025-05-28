@@ -1,9 +1,9 @@
-import { View, Text, ScrollView, TextInput, Pressable } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { dinnerArea } from "./data";
-import { useState } from "react";
 import { COLORS } from "@/constants/themes";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
+import { useState } from "react";
+import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { dinnerArea } from "./data";
 
 export default function DinnerPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -64,7 +64,7 @@ export default function DinnerPage() {
   );
   return (
     <ScrollView className="flex-1 bg-background px-6 pt-6">
-      <View className="flex-row bg-background">
+      <View className="flex-row bg-background  mt-8">
         <Pressable className="p-2" onPress={() => router.push("/generate")}>
           <Ionicons name="chevron-back" size={24} color={COLORS.primary} />
         </Pressable>

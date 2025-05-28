@@ -64,7 +64,7 @@ export default function LunchPage() {
   );
   return (
     <ScrollView className="flex-1 bg-background px-6 pt-6">
-      <View className="flex-row bg-background">
+      <View className="flex-row bg-background  mt-8">
         <Pressable className="p-2" onPress={() => router.push("/generate")}>
           <Ionicons name="chevron-back" size={24} color={COLORS.primary} />
         </Pressable>
