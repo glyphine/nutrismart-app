@@ -1,18 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
 import { CameraType, CameraView, useCameraPermissions } from "expo-camera";
+import { setTempScanData } from "./ingredient/tempScanStore";
 import { router } from "expo-router";
-import { useState } from "react";
-import {
-  Dimensions,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
+import { useRef, useState } from "react";
+import { Dimensions, Text, TouchableOpacity, View } from "react-native";
 
 export default function ScanIngredients() {
   const [facing, setFacing] = useState<CameraType>("back");
   const [permission, requestPermission] = useCameraPermissions();
+  const cameraRef = useRef<CameraView>(null);
 
   const { width } = Dimensions.get("window");
 
@@ -33,6 +29,18 @@ export default function ScanIngredients() {
     );
   }
 
+  const handleCapture = async () => {
+    if (cameraRef.current) {
+      const photo = await cameraRef.current.takePictureAsync({ quality: 0.5 });
+      setTempScanData({
+        name: "Carrot",
+        category: "Vegetable",
+        imageUri: photo.uri,
+      });
+      router.push("/ingredient/scan");
+    }
+  };
+
   return (
     <View className="flex-1 bg-black justify-between">
       {/* Header icons */}
@@ -40,14 +48,20 @@ export default function ScanIngredients() {
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="close" size={28} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFacing(facing === "back" ? "front" : "back")}>
+        <TouchableOpacity
+          onPress={() => setFacing(facing === "back" ? "front" : "back")}
+        >
           <Ionicons name="sync-outline" size={28} color="white" />
         </TouchableOpacity>
       </View>
 
-      {/* Camera with overlay */}
+      {/* Camera */}
       <View className="flex-1 justify-center items-center">
-        <CameraView style={{ width, height: width * 1.8 }} facing={facing} />
+        <CameraView
+          ref={cameraRef}
+          style={{ width, height: width * 1.8 }}
+          facing={facing}
+        />
 
         {/* Frame overlay */}
         <View
@@ -55,13 +69,13 @@ export default function ScanIngredients() {
           className="absolute border-2 border-white w-[80%] aspect-square rounded-xl"
         />
 
-        {/* Scan hint text */}
+        {/* Hint text */}
         <Text className="absolute bottom-8 text-white font-noto text-sm text-center">
           Scan completely for best results.
         </Text>
       </View>
 
-      {/* Recognition Result Card */}
+      {/* Result Card */}
       <View className="bg-white rounded-t-3xl p-6">
         <Text className="text-2xl font-lexend-bold text-primary mb-1">
           Carrot
@@ -71,14 +85,14 @@ export default function ScanIngredients() {
           98%
         </Text>
 
-        <Pressable
-          onPress={() => router.push("/(client)/hidden/[scan]")}
+        <TouchableOpacity
+          onPress={handleCapture}
           className="mt-2 bg-primary py-4 rounded-xl items-center"
         >
           <Text className="text-white font-lexend-bold text-base">
             Continue →
           </Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   );
