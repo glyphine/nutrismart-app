@@ -2,7 +2,7 @@ import { COLORS } from "@/constants/themes";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { snackArea } from "./data";
 
 export default function SnackPage() {
@@ -92,9 +92,10 @@ export default function SnackPage() {
       {/* List */}
       <View className="space-y-4 mb-12">
         {filteredItems.map((item) => (
-          <View
+          <TouchableOpacity
             key={item.id}
             className="bg-white p-4 rounded-2xl shadow-sm my-2"
+            onPress={() => router.push(`/recipes/${item.id}`)}
           >
             <View className="flex-row items-start justify-between mb-4">
               <Text
@@ -143,7 +144,7 @@ export default function SnackPage() {
                 Sodium: {item.sodium} mg
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </View>
     </ScrollView>

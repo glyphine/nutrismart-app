@@ -92,9 +92,10 @@ export default function DinnerPage() {
       {/* List */}
       <View className="space-y-4 mb-12">
         {filteredItems.map((item) => (
-          <View
+          <TouchableOpacity
             key={item.id}
             className="bg-white p-4 rounded-2xl shadow-sm my-2"
+            onPress={() => router.push(`/recipes/${item.id}`)}
           >
             <View className="flex-row justify-between items-center mb-4">
               <Text className="font-lexend-bold text-xl text-primary">
@@ -137,7 +138,7 @@ export default function DinnerPage() {
                 Sodium: {item.sodium} mg
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </View>
     </ScrollView>

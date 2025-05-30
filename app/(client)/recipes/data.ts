@@ -70,7 +70,7 @@ export const breakfastArea = [
 
 export const lunchArea = [
   {
-    id: "1",
+    id: "4",
     title: "Grilled Chicken Quinoa Bowl",
     calories: 320,
     glycemic: "Mid",
@@ -94,7 +94,7 @@ export const lunchArea = [
     ]
   },
   {
-    id: "2",
+    id: "5",
     title: "Tuna Salad Wrap",
     calories: 280,
     glycemic: "Low",
@@ -116,7 +116,7 @@ export const lunchArea = [
     ]
   },
   {
-    id: "3",
+    id: "6",
     title: "Veggie Stir-Fry",
     calories: 240,
     glycemic: "Mid",
@@ -140,7 +140,7 @@ export const lunchArea = [
 
 export const dinnerArea = [
   {
-    id: "1",
+    id: "7",
     title: "Baked Salmon & Asparagus",
     calories: 350,
     glycemic: "Low",
@@ -163,7 +163,7 @@ export const dinnerArea = [
     ]
   },
   {
-    id: "2",
+    id: "8",
     title: "Stuffed Bell Peppers",
     calories: 310,
     glycemic: "Mid",
@@ -186,7 +186,7 @@ export const dinnerArea = [
     ]
   },
   {
-    id: "3",
+    id: "9",
     title: "Zucchini Noodles with Pesto",
     calories: 270,
     glycemic: "Low",
@@ -211,7 +211,7 @@ export const dinnerArea = [
 
 export const snackArea = [
   {
-    id: "1",
+    id: "10",
     title: "Apple Slices with Peanut Butter",
     calories: 160,
     glycemic: "Low",
@@ -228,7 +228,7 @@ export const snackArea = [
     ]
   },
   {
-    id: "2",
+    id: "11",
     title: "Boiled Egg & Carrot Sticks",
     calories: 110,
     glycemic: "Low",
@@ -247,7 +247,7 @@ export const snackArea = [
     ]
   },
   {
-    id: "3",
+    id: "12",
     title: "Low-Fat Cheese & Crackers",
     calories: 140,
     glycemic: "Mid",
