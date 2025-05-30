@@ -16,7 +16,7 @@ export default function ProfilePage() {
   const [lastName, setLastName] = useState("Lobaton");
   const [username, setUsername] = useState("glyphine");
   const [email, setEmail] = useState("gaLobaton@mcm.edu.ph");
-  const [newPassword, setNewPassword] = useState("********");
+  const [newPassword, setNewPassword] = useState("doggggy234@");
   const [editable, setEditable] = useState(false);
 
   const [errors, setErrors] = useState({
@@ -66,7 +66,7 @@ export default function ProfilePage() {
   return (
     <ScrollView className="flex-1 bg-background px-6 pt-6">
       {/* Profile Header */}
-      <View className="bg-yellow rounded-3xl">
+      <View className="bg-yellow rounded-3xl mt-8">
         {/* Back Button */}
         <TouchableOpacity className="p-2" onPress={() => router.back()}>
           <Ionicons name="chevron-back" size={24} color={COLORS.primary} />
@@ -78,7 +78,7 @@ export default function ProfilePage() {
               {firstName} {lastName}
             </Text>
             <Text className="px-4 text-lg font-noto text-gray">
-              @ {username}
+              @{username}
             </Text>
           </View>
 
@@ -101,7 +101,10 @@ export default function ProfilePage() {
       {/* Form */}
       <View className="space-y-4">
         {/* Name Fields */}
-        <View className="py-2 mt-2">
+        <View className="py-2 mt-4 mb-2">
+          <Text className="text-base font-lexend-bold text-gray-700">
+            Fullname
+          </Text>
           <View className="flex-row gap-4">
             <TextInput
               value={firstName}
@@ -129,27 +132,25 @@ export default function ProfilePage() {
         </View>
 
         {/* Username */}
-        <View className="py-2">
-          <View
-            className={`flex-row items-center border ${
-              errors.username ? "border-red" : "border-primary"
-            } ${editable ? "bg-blue-100" : "bg-gray-200"} rounded-lg px-4`}
-          >
-            <Text className="text-base text-gray">@</Text>
-            <TextInput
-              value={username}
-              onChangeText={setUsername}
-              editable={editable}
-              placeholder="Username"
-              className={`flex-1 text-base ${
-                editable ? "text-black" : "text-gray"
-              } pl-1`}
-            />
-          </View>
+        <View className="py-2 mb-2">
+          <Text className="text-base font-lexend-bold text-gray-700">
+            Username
+          </Text>
+          <TextInput
+            value={username}
+            onChangeText={setUsername}
+            editable={editable}
+            placeholder="Email"
+            className={`mt-2 border ${
+              errors.email ? "border-red" : "border-primary"
+            } ${
+              editable ? "bg-blue-100 text-black" : "bg-gray-200 text-gray"
+            } rounded-lg px-4 py-3 text-base`}
+          />
         </View>
 
         {/* Email */}
-        <View className="py-2">
+        <View className="py-2 mb-2">
           <Text className="text-base font-lexend-bold text-gray-700">
             Email
           </Text>
@@ -167,7 +168,7 @@ export default function ProfilePage() {
         </View>
 
         {/* Password */}
-        <View className="py-2">
+        <View className="py-2 mb-4">
           <Text className="text-base font-lexend-bold text-gray-700">
             New Password
           </Text>
@@ -192,7 +193,7 @@ export default function ProfilePage() {
       </View>
 
       {/* Buttons */}
-      <View className="mt-4">
+      <View className="mt-2">
         <TouchableOpacity
           onPress={toggleEdit}
           className={`${
