@@ -106,7 +106,7 @@ export default function HomePage() {
   return (
     <ScrollView className="flex-1 bg-background px-6 pt-8">
       {/* Header Section */}
-      <View className="mt-4">
+      <View className="mt-8">
         <Image
           source={require("@/assets/images/gradient-bg.png")}
           className="absolute w-96 h-full"
@@ -160,7 +160,7 @@ export default function HomePage() {
         </View>
 
         {/* Categories */}
-        <Text className="font-lexend-bold text-primary text-2xl mt-4 mb-2">
+        <Text className="font-lexend-bold text-primary text-2xl mt-8 mb-2">
           Categories
         </Text>
         <View className="flex-row justify-between px-2 py-2">
@@ -185,7 +185,7 @@ export default function HomePage() {
       </View>
 
       {/* Recommendation Section */}
-      <Text className="font-lexend-bold text-primary text-2xl mt-4">
+      <Text className="font-lexend-bold text-primary text-2xl mt-8">
         AI Suggestion
       </Text>
       <View className="mt-6">
