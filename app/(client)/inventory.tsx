@@ -1,8 +1,9 @@
+import { CategoryType } from "@/constants/enums";
 import { COLORS } from "@/constants/themes";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
-import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import {
   Image,
   Pressable,
@@ -14,12 +15,24 @@ import {
 } from "react-native";
 import { inventoryData } from "./ingredient/sampledata";
 
-const categories = ["All", "Vegetable", "Fruit", "Grain", "Protein", "Dairy"];
+const categories: CategoryType[] = [
+  CategoryType.ALL,
+  CategoryType.VEGETABLE,
+  CategoryType.FRUIT,
+  CategoryType.GRAIN,
+  CategoryType.PROTEIN,
+  CategoryType.DAIRY,
+];
 
 export default function InventoryPage() {
+  const { category } = useLocalSearchParams();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    setSelectedCategory(category as CategoryType ?? CategoryType.ALL);
+  }, [category])
 
   // Combined Filter: Category + Search
   const filteredInventory = inventoryData.filter((item) => {
@@ -50,12 +63,12 @@ export default function InventoryPage() {
           />
           <Ionicons name="search" size={20} color="#000" />
         </View>
-        <TouchableOpacity 
+        <TouchableOpacity
           className="bg-primary p-3 ml-4 rounded-xl"
           onPress={() => router.push(`/ingredient/add`)}
         >
           <Ionicons name="add" size={20} color="#fff" />
-        </TouchableOpacity >
+        </TouchableOpacity>
       </View>
 
       {/* Category */}
@@ -85,7 +98,7 @@ export default function InventoryPage() {
               >
                 {cat.toUpperCase()}
               </Text>
-            </Pressable >
+            </Pressable>
           );
         })}
       </ScrollView>
@@ -93,7 +106,7 @@ export default function InventoryPage() {
       {/* Inventory List */}
       <View className="space-y-4 pb-12 ">
         {filteredInventory.map((item) => (
-          <TouchableOpacity 
+          <TouchableOpacity
             key={item.id}
             onPress={() =>
               router.push(
@@ -125,7 +138,7 @@ export default function InventoryPage() {
                 In stock: {item.stock}
               </Text>
             </View>
-          </TouchableOpacity >
+          </TouchableOpacity>
         ))}
 
         {filteredInventory.length === 0 && (

@@ -1,3 +1,4 @@
+import { CategoryType } from "@/constants/enums";
 import { COLORS } from "@/constants/themes";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -53,6 +54,29 @@ const getRecommendedMeals = () => {
     },
   ];
 };
+
+const categories = [
+  {
+    src: require("@/assets/images/buttons/vegetable-button.png"),
+    category: CategoryType.VEGETABLE,
+  },
+  {
+    src: require("@/assets/images/buttons/fruit-button.png"),
+    category: CategoryType.FRUIT,
+  },
+  {
+    src: require("@/assets/images/buttons/grains-button.png"),
+    category: CategoryType.GRAIN,
+  },
+  {
+    src: require("@/assets/images/buttons/protein-button.png"),
+    category: CategoryType.PROTEIN,
+  },
+  {
+    src: require("@/assets/images/buttons/dairy-button.png"),
+    category: CategoryType.DAIRY,
+  },
+];
 
 export default function HomePage() {
   const [favorites, setFavorites] = useState<{ [key: number]: boolean }>({});
@@ -123,7 +147,10 @@ export default function HomePage() {
             <Ionicons name="search" size={24} color={COLORS.primary} />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => router.push("/add")} className="ml-3">
+          <TouchableOpacity
+            onPress={() => router.push("/add")}
+            className="ml-3"
+          >
             <MaterialCommunityIcons
               name="scan-helper"
               size={24}
@@ -137,14 +164,16 @@ export default function HomePage() {
           Categories
         </Text>
         <View className="flex-row justify-between px-2 py-2">
-          {[
-            { src: require("@/assets/images/buttons/vegetable-button.png") },
-            { src: require("@/assets/images/buttons/fruit-button.png") },
-            { src: require("@/assets/images/buttons/grains-button.png") },
-            { src: require("@/assets/images/buttons/protein-button.png") },
-            { src: require("@/assets/images/buttons/dairy-button.png") },
-          ].map((item, index) => (
-            <TouchableOpacity key={index}>
+          {categories.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() =>
+                router.navigate({
+                  pathname: "/(client)/inventory",
+                  params: { category: item.category },
+                })
+              }
+            >
               <Image
                 source={item.src}
                 className="w-16 h-24 rounded-xl"
