@@ -63,89 +63,92 @@ export default function RecipeDetailsPage() {
         </TouchableOpacity>
       </View>
 
-      {/* Description */}
+      {/* Description.. this logic cuts the sentence after 7 letters */}
       <Text className="text-gray-700 font-noto text-sm mb-4">
-        {recipeData.description}
+        {(() => {
+          const words = recipeData.description.split(" ");
+          const firstLine = words.slice(0, 7).join(" ");
+          const secondLine = words.slice(7).join(" ");
+          return (
+            <>
+              {firstLine}
+              {"\n"}
+              {secondLine}
+            </>
+          );
+        })()}
       </Text>
 
       {/* Nutrition Facts */}
       <View className="flex-row justify-between mb-8">
         {/* Calories */}
-        <View className="flex-1 flex-row items-center bg-white rounded-xl px-3 py-2 shadow mr-2">
+        <View className="flex-1 items-center bg-white rounded-xl px-3 py-4 shadow mr-2">
           <Ionicons
             name="flame"
-            size={20}
+            size={28}
             color={COLORS.primary}
-            className="mr-2"
+            className="mb-2"
           />
-          <View>
-            <Text className="text-xs font-lexend-bold text-gray-700">
-              Calories
-            </Text>
-            <Text className="text-base font-noto text-primary">
-              {recipeData.calories} kcal
-            </Text>
-          </View>
+          <Text className="text-base font-noto text-primary">
+            {recipeData.calories} kcal
+          </Text>
+          <Text className="text-xs font-lexend-bold text-gray-700">
+            Calories
+          </Text>
         </View>
 
         {/* Glycemic Index */}
-        <View className="flex-1 flex-row items-center bg-white rounded-xl px-3 py-2 shadow mr-2">
+        <View className="flex-1 items-center bg-white rounded-xl px-3 py-4 shadow mr-2">
           <Ionicons
             name="pulse"
-            size={20}
+            size={28}
             color={COLORS.primary}
-            className="mr-2"
+            className="mb-2"
           />
-          <View>
-            <Text className="text-xs font-lexend-bold text-gray-700">
-              Glycemic
-            </Text>
-            <Text className="text-base font-noto text-primary">
-              {recipeData.glycemic}
-            </Text>
-          </View>
+          <Text className="text-base font-noto text-primary">
+            {recipeData.glycemic}
+          </Text>
+          <Text className="text-xs font-lexend-bold text-gray-700">
+            Glycemic
+          </Text>
         </View>
 
         {/* Sodium */}
-        <View className="flex-1 flex-row items-center bg-white rounded-xl px-3 py-2 shadow">
+        <View className="flex-1 items-center bg-white rounded-xl px-3 py-4 shadow">
           <Ionicons
             name="water"
-            size={20}
+            size={28}
             color={COLORS.primary}
-            className="mr-2"
+            className="mb-2"
           />
-          <View>
-            <Text className="text-xs font-lexend-bold text-gray-700">
-              Sodium
-            </Text>
-            <Text className="text-base font-noto text-primary">
-              {recipeData.sodium} mg
-            </Text>
-          </View>
+          <Text className="text-base font-noto text-primary">
+            {recipeData.sodium} mg
+          </Text>
+          <Text className="text-xs font-lexend-bold text-gray-700">Sodium</Text>
         </View>
       </View>
 
       {/* Ingredients */}
-      <Text className="text-xl font-lexend-bold text-red-600 mb-2">
+      <Text className="text-xl font-lexend-bold text-red-600 mb-4">
         Ingredients
       </Text>
       <View className="space-y-1 mb-8">
         {recipeData.ingredients.map((item, index) => (
           <View key={index} className="flex-row items-start mb-2">
-            <Text className="mr-2 text-primary">•</Text>
+            <Text className="mr-2 text-primary text-2xl">•</Text>
             <Text className="font-noto text-gray-800 flex-1">{item}</Text>
           </View>
         ))}
       </View>
 
       {/* Instructions */}
-      <Text className="text-xl font-lexend-bold text-red-600 mb-2">
+      <Text className="text-xl font-lexend-bold text-red-600 mb-4">
         Instructions
       </Text>
-      <View className="space-y-2 mb-8">
+      <View className="space-y-2 mb-16">
         {recipeData.instructions.map((step, index) => (
           <View key={index} className="flex-row items-start">
-            <Text className="font-lexend-bold text-primary mr-2 mb-4">
+            <Text className="font-lexend-bold text-primary text-base mr-2 mb-4">
               {index + 1}.
             </Text>
             <Text className="font-noto text-gray-800 flex-1">{step}</Text>
