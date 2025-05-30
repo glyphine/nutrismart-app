@@ -130,7 +130,7 @@ export default function HomePage() {
         </View>
 
         {/* Featured Section */}
-        <View className="relative overflow-hidden mb-4 px-2">
+        <View className="relative overflow-hidden mb-2 px-2">
           <Text className="text-primary text-3xl font-lexend-bold mb-2">
             NutriSmart: {"\n"}Delicious, {"\n"}Nourishing Recipes
           </Text>
@@ -160,7 +160,7 @@ export default function HomePage() {
         </View>
 
         {/* Categories */}
-        <Text className="font-lexend-bold text-primary text-2xl mt-8 mb-2">
+        <Text className="font-lexend-bold text-primary text-2xl mt-4 mb-2">
           Categories
         </Text>
         <View className="flex-row justify-between px-2 py-2">
@@ -185,10 +185,10 @@ export default function HomePage() {
       </View>
 
       {/* Recommendation Section */}
-      <Text className="font-lexend-bold text-primary text-2xl mt-8">
+      <Text className="font-lexend-bold text-primary text-2xl mt-4">
         AI Suggestion
       </Text>
-      <View className="mt-6">
+      <View className="mt-4 mb-2">
         <FlatList
           ref={listRef}
           horizontal

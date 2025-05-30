@@ -144,7 +144,8 @@ export default function EditIngredientFromScanPage() {
           <Text className="text-base font-lexend-bold text-gray-700">
             Quantity
           </Text>
-          <TextInput
+          <TextInput 
+          placeholder="Total items"
             editable={editable}
             className={`mt-2 border rounded-lg px-4 py-3 text-base font-noto ${
               errors.stock
@@ -157,7 +158,7 @@ export default function EditIngredientFromScanPage() {
               setStock(val);
               setErrors((prev) => ({ ...prev, stock: false }));
             }}
-            placeholder="Total items"
+            
           />
         </View>
 

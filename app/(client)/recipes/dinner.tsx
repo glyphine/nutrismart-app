@@ -2,7 +2,7 @@ import { COLORS } from "@/constants/themes";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { dinnerArea } from "./data";
 
 export default function DinnerPage() {
@@ -65,9 +65,9 @@ export default function DinnerPage() {
   return (
     <ScrollView className="flex-1 bg-background px-6 pt-6">
       <View className="flex-row bg-background  mt-8">
-        <Pressable className="p-2" onPress={() => router.push("/generate")}>
+        <TouchableOpacity className="p-2" onPress={() => router.push("/generate")}>
           <Ionicons name="chevron-back" size={24} color={COLORS.primary} />
-        </Pressable>
+        </TouchableOpacity>
         <View className="flex-1 items-center -ml-10">
           <Text className="text-3xl font-lexend-bold text-center text-primary mb-8">
             Dinner
@@ -100,13 +100,13 @@ export default function DinnerPage() {
               <Text className="font-lexend-bold text-xl text-primary">
                 {item.title}
               </Text>
-              <Pressable onPress={() => toggleFavorite(item.id)}>
+              <TouchableOpacity onPress={() => toggleFavorite(item.id)}>
                 <Ionicons
                   name={favoriteItems[item.id] ? "heart" : "heart-outline"}
                   size={24}
                   color={favoriteItems[item.id] ? "red" : "gray"}
                 />
-              </Pressable>
+              </TouchableOpacity>
             </View>
 
             <Text className="font-noto text-base text-gray-700 mb-4">

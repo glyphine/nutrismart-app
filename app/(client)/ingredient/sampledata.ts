@@ -13,7 +13,7 @@ export const inventoryData = [
     category: "Fruit",
     stock: 2,
     description: "Sample Description",
-    image: require("@/assets/images/measf.jpg"),
+    image: require("@/assets/images/profile.jpg"),
   },
   {
     id: 3,
